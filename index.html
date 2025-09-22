@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser DOOM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- UI Overlay -->
+    <div id="uiOverlay">
+        <div id="statusBar">FPS: <span id="fpsCounter">0</span></div>
+        <div id="controlsPanel">
+            <button id="fullscreenBtn">Fullscreen</button>
+            <button id="loadWadBtn">Load WAD</button>
+            <button id="settingsBtn">Settings</button>
+        </div>
+        <div id="errorPanel" class="hidden"></div>
+        <div id="fileDropOverlay" class="hidden">Drop WAD file here</div>
+    </div>
+
+    <!-- File Input for WAD loading -->
+    <input type="file" id="wadFileInput" accept=".wad,.pk3" class="hidden">
+    
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="hidden">
+        <h3>Settings</h3>
+        <div>
+            <label for="musicVolume">Music Volume:</label>
+            <input type="range" id="musicVolume" min="0" max="1" step="0.01" value="0.7">
+        </div>
+        <div>
+            <label for="sfxVolume">SFX Volume:</label>
+            <input type="range" id="sfxVolume" min="0" max="1" step="0.01" value="0.8">
+        </div>
+        <button id="closeSettings">Close</button>
+    </div>
+
+    <script src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "browser-doom",
+  "version": "1.0.0",
+  "description": "Browser-based DOOM replica using PrBoom+ engine compiled to WebAssembly",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080",
+    "dev": "http-server -p 8080",
+    "build": "./build.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "doom",
+    "wasm",
+    "emscripten",
+    "browser-game",
+    "retro-gaming"
+  ],
+  "author": "Browser DOOM Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/browser-doom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/browser-doom/issues"
+  },
+  "homepage": "https://github.com/yourusername/browser-doom#readme"
+}
