@@ -68,6 +68,23 @@
     </div>
   </div>
 
+  <script>
+    // `file://` fails silently (browser CORS blocks the ES-module app and its
+    // fetch() calls), so surface it right away instead of dead buttons.
+    (function () {
+      if (window.location.protocol === 'file:') {
+        document.addEventListener('DOMContentLoaded', function () {
+          var s = document.getElementById('statusLine');
+          var a = document.getElementById('activeWadLine');
+          if (s) {
+            s.textContent = 'This page must be served over http — open it via a local server (e.g. `npm run dev`), then visit http://localhost:8080';
+            s.classList.add('error');
+          }
+          if (a) a.textContent = '';
+        });
+      }
+    })();
+  </script>
   <script>/* engine loaded by app.js */</script>
   <script type="module" src="app.js"></script>
 </body>
