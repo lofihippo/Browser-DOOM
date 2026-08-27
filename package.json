@@ -1,20 +1,21 @@
 {
   "name": "browser-doom",
   "version": "1.0.0",
-  "description": "Browser-based DOOM replica using PrBoom+ engine compiled to WebAssembly",
+  "description": "A playable, fully client-side DOOM that runs in the browser. Bundles the doomgeneric WebAssembly engine (GPL-2.0) and Freedoom Phase 1 game data, with runtime loading of user WADs.",
   "main": "index.html",
+  "type": "module",
   "scripts": {
-    "start": "http-server -p 8080",
-    "dev": "http-server -p 8080",
-    "build": "./build.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server -p 8080 -c-1",
+    "dev": "http-server -p 8080 -c-1"
   },
   "keywords": [
     "doom",
     "wasm",
-    "emscripten",
+    "webassembly",
     "browser-game",
-    "retro-gaming"
+    "retro-gaming",
+    "freedoom",
+    "doomgeneric"
   ],
   "author": "Browser DOOM Team",
   "license": "MIT",
@@ -23,10 +24,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/browser-doom.git"
+    "url": "https://github.com/lofihippo/Browser-DOOM"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/browser-doom/issues"
+    "url": "https://github.com/lofihippo/Browser-DOOM/issues"
   },
-  "homepage": "https://github.com/yourusername/browser-doom#readme"
+  "homepage": "https://github.com/lofihippo/Browser-DOOM#readme"
 }

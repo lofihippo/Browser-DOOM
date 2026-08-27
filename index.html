@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browser DOOM</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser DOOM</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    
-    <!-- UI Overlay -->
-    <div id="uiOverlay">
-        <div id="statusBar">FPS: <span id="fpsCounter">0</span></div>
-        <div id="controlsPanel">
-            <button id="fullscreenBtn">Fullscreen</button>
-            <button id="loadWadBtn">Load WAD</button>
-            <button id="settingsBtn">Settings</button>
-        </div>
-        <div id="errorPanel" class="hidden"></div>
-        <div id="fileDropOverlay" class="hidden">Drop WAD file here</div>
+  <div id="boot" class="screen">
+    <div class="panel">
+      <h1>BROWSER DOOM</h1>
+      <p class="tagline">Play classical DOOM in your browser</p>
+      <p class="hint">
+        Bundled with <strong>Freedoom: Phase 1</strong>. Drag a <code>.wad</code> onto this
+        window (or load one below) to play any legally-owned IWAD instead.
+      </p>
+      <div class="actions">
+        <button id="loadWadBtn" class="primary">Load WAD…</button>
+        <button id="startBtn" class="primary">Play</button>
+        <button id="resetWadBtn" title="Reset to bundled Freedoom" class="ghost">Use Freedoom</button>
+      </div>
+      <input type="file" id="wadInput" accept=".wad" hidden>
+      <p id="statusLine" class="status"></p>
+      <p id="activeWadLine" class="status muted"></p>
     </div>
+  </div>
 
-    <!-- File Input for WAD loading -->
-    <input type="file" id="wadFileInput" accept=".wad,.pk3" class="hidden">
-    
-    <!-- Settings Panel -->
-    <div id="settingsPanel" class="hidden">
-        <h3>Settings</h3>
-        <div>
-            <label for="musicVolume">Music Volume:</label>
-            <input type="range" id="musicVolume" min="0" max="1" step="0.01" value="0.7">
-        </div>
-        <div>
-            <label for="sfxVolume">SFX Volume:</label>
-            <input type="range" id="sfxVolume" min="0" max="1" step="0.01" value="0.8">
-        </div>
-        <button id="closeSettings">Close</button>
+  <div id="game" class="screen hidden">
+    <canvas id="canvas" tabindex="0"></canvas>
+    <div id="hud">
+      <div id="hudFps">—</div>
+      <div id="hudWad">—</div>
+      <button id="fullscreenBtn" title="Toggle fullscreen">⛶</button>
+      <button id="reloadBtn" title="Reload / go to menu">↺</button>
+      <button id="controlsBtn" title="Controls / help">?</button>
     </div>
+    <div id="overlay" class="hidden">
+      <div class="panel small">
+        <div id="overlayTitle">Loading…</div>
+        <p id="overlayBody"></p>
+        <div class="actions">
+          <button id="overlayOk" class="primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script src="src/main.js"></script>
+  <div id="helpPanel" class="screen hidden">
+    <div class="panel">
+      <h2>Controls</h2>
+      <ul>
+        <li><b>W/A/S/D</b> or <b>Arrows</b> — move / strafe</li>
+        <li><b>Mouse</b> — turn</li>
+        <li><b>Mouse click / Ctrl</b> — fire</li>
+        <li><b>Space</b> — open / use</li>
+        <li><b>Shift</b> — run</li>
+        <li><b>Alt</b> — strafe</li>
+        <li><b>F1</b> — game options · <b>F2</b> — save · <b>F3</b> — load</li>
+        <li><b>Esc</b> — game menu / release mouse</li>
+        <li>Click canvas to capture the mouse (pointer lock) for camera turning</li>
+      </ul>
+      <p class="muted">
+        This build ships the <a href="https://github.com/ozkl/doomgeneric" target="_blank" rel="noopener">doomgeneric</a>
+        engine (GPL-2.0). Doom's original control model turns horizontally; there is no vertical mouse-look.
+      </p>
+      <div class="actions"><button id="helpClose" class="primary">Got it</button></div>
+    </div>
+  </div>
+
+  <script>/* engine loaded by app.js */</script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
