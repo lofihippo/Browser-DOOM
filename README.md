@@ -66,8 +66,6 @@ custom IWAD.
 - ✅ **Persistent game selection** — your chosen WAD is stored in IndexedDB and
   restored on the next visit; **Use Freedoom** returns to the bundled default.
 - ✅ **Fullscreen toggle** and a lightweight HUD (FPS + current game name).
-- ✅ **Save / load** via Doom's in-game save menu (persisted in the browser's
-  virtual file system / IndexedDB).
 
 ---
 
@@ -85,7 +83,7 @@ custom IWAD.
 | Strafe              | `Alt` |
 | Map                 | `Tab` |
 | Game options        | `F1` |
-| Save / load game    | `F2` / `F3` |
+| Save / load game    | `F2` / `F3` (current session only — see below) |
 | In-game menu        | `Esc` |
 
 > This source port is based on the classic DOOM engine, which turns horizontally —
@@ -164,8 +162,9 @@ Key details:
   IWAD search finds only the intended game.
 - **No re-encoding.** Freedoom and user WADs are streamed straight into the WASM FS
   as-is; nothing is converted.
-- **Persistence.** Data that must survive a reload lives in **IndexedDB** (active WAD)
-  and the Emscripten FS (save games). WAD bytes are re-validated on load.
+- **Persistence.** The active WAD lives in **IndexedDB** and survives a reload; its
+  bytes are re-validated on load. Nothing else persists — the engine's filesystem is
+  in-memory (MEMFS), so anything it writes is gone when the page reloads.
 - **No threads / no COOP-COEP.** The engine is single-threaded, so it works with any
   simple static server and needs no special HTTP headers.
 
@@ -187,7 +186,7 @@ cd /path/to/Browser-DOOM
 rm -rf node_modules package-lock.json
 ```
 
-**Clear browser data the app created** (active custom WAD, save games), per browser:
+**Clear browser data the app created** (the active custom WAD), per browser:
 
 - **Chrome / Edge:** Settings → Privacy and security → Cookies and other site data →
   find `localhost:8080` → **Delete** (also clears the IndexedDB `browser-doom` database).
@@ -288,6 +287,11 @@ how much of the thing you are actually playing they are responsible for:
 **Buttons look "dead" / nothing happens on Play or Load WAD.**
 You almost certainly opened `index.html` via `file://`. Serve the folder over HTTP
 (see **Quick start**) and open `http://localhost:8080`.
+
+**My saved game disappeared after I reloaded the page.**
+Expected, for now. The engine's filesystem is in-memory only, so Doom's F2/F3 saves
+work while the tab is open but do not survive a reload. Making them persistent needs
+the engine rebuilt with Emscripten's IDBFS support.
 
 **How do I switch back to the bundled game?**
 On the start screen click **Use Freedoom**.
