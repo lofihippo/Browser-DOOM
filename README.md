@@ -12,9 +12,9 @@ and your choice is remembered across sessions.
 
 > **This repo is a thin shell, not a game.** The hard part — the DOOM engine, the
 > game data, the music instruments, the original 1993 game design — is other
-> people's work, redistributed here unmodified under their own licenses.
-> [lofihippo](https://github.com/lofihippo) wrote only the ~600 lines of browser
-> glue that wire them together. See **[Credits](#credits)**.
+> people's work, redistributed here unmodified under their own licenses. What lives
+> here is about 600 lines of browser glue holding them together.
+> See **[Credits](#credits)**.
 
 ![Screenshot](docs/screenshot.png)
 
@@ -282,9 +282,9 @@ how much of the thing you are actually playing they are responsible for:
   packaging and configuring the GUS instrument patches that give the music its voice.
 - **The [Emscripten](https://emscripten.org/) project** — for the toolchain that puts
   a 1993 C codebase in a browser tab.
-- **[lofihippo](https://github.com/lofihippo)** — assembled this repository and wrote
-  the browser wrapper (`index.html`, `style.css`, `app.js`, `config.js`, docs). That
-  is the only part of this repo authored here.
+- **[lofihippo](https://github.com/lofihippo)** — pieced together the wrapper, using
+  DeepSeek V4 Flash 0731 running locally on an M2 Mac. Just the glue; everything above
+  is the actual work.
 
 ---
 
