@@ -182,8 +182,8 @@ function installWadInFs(M, wad) {
     throw new Error('Engine file-system hooks unavailable');
   }
   const target = iwadTargetName(wad.name);
-  // Remove the engine's baked IWAD candidates (shareware /doom1.wad is present
-  // here) so Doom's fixed-order search picks only our WAD.
+  // Defensively clear any other IWAD the engine's data package might provide, so
+  // Doom's fixed-order search picks only our WAD.
   const otherIwads = ['doom2.wad', 'plutonia.wad', 'tnt.wad', 'doom.wad',
                       'doom1.wad', 'chex.wad', 'hacx.wad', 'freedm.wad',
                       'freedoom2.wad', 'heretic.wad', 'heretic1.wad',
@@ -228,9 +228,9 @@ function seedModule(wad) {
       : `${base}${name}`,
     print: (t) => console.log('[doom]', t),
     printErr: (t) => console.warn('[doom]', t),
-    // onRuntimeInitialized fires after the .data package (incl. the baked
-    // shareware /doom1.wad) is loaded and just before main() auto-runs — the
-    // right moment to swap in our WAD so Doom's IWAD search finds only it.
+    // onRuntimeInitialized fires after the .data package is loaded and just
+    // before main() auto-runs — the right moment to swap in our WAD so Doom's
+    // IWAD search finds only it.
     onRuntimeInitialized: () => {
       try { installWadInFs(window.Module, wad); }
       catch (e) { console.error('WAD install failed:', e); }

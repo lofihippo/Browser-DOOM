@@ -23,27 +23,20 @@ from the engine id Software wrote and later released as free software in 1997.
 ZeniMax / Microsoft. This project is not affiliated with, endorsed by, or sponsored
 by them.**
 
-### ⚠️ id Software shareware game data IS present in this repository
+### id Software game data has been removed from this repository
 
-The prebuilt engine data package `engine/doomgeneric.data` **contains id Software's
-DOOM shareware IWAD** (`/doom1.wad`, 4,196,020 bytes — *"DOOM: Knee-Deep in the Dead"*,
-episode 1, maps E1M1–E1M9). It arrives baked into the upstream doomgeneric
-WebAssembly build and is redistributed here verbatim as part of that build.
+The upstream doomgeneric WebAssembly build ships with id Software's DOOM shareware
+IWAD (`doom1.wad`, 4,196,020 bytes — *"Knee-Deep in the Dead"*) baked into its
+`doomgeneric.data` package. **That file has been removed here.**
 
-- This data is **proprietary to id Software.** It is *not* free or open-source software.
-- id distributed it as **shareware** and its own in-game notice states that
-  *"DOOM, Knee-Deep in the Dead can be freely distributed"*, with disk vendors
-  directed to the accompanying `vendor.doc`. Those original shareware license and
-  vendor documents are **not** included in the upstream data package, so this is not
-  the complete shareware distribution as id packaged it.
-- **It is unused at runtime.** `app.js` deletes `/doom1.wad` from the engine's virtual
-  file system before the game starts, so play always uses Freedoom Phase 1 or a WAD
-  you supply yourself.
+`engine/doomgeneric.data` in this repository is the upstream package with the
+`/doom1.wad` entry excised and the file-offset manifest in `engine/doomgeneric.js`
+adjusted accordingly. The 211 remaining files (the GUS instrument patches and
+Timidity configurations) are byte-for-byte identical to upstream. Nothing else was
+touched, and the engine never used the shareware WAD anyway — `app.js` already
+deleted it from the virtual filesystem before startup.
 
-If you fork, redistribute, or host this project, be aware you are also redistributing
-that shareware data. To avoid it, strip `/doom1.wad` from `engine/doomgeneric.data`
-and update the file-offset manifest in `engine/doomgeneric.js`; nothing in the app
-depends on it.
+**No id Software game data of any kind is distributed in this repository.**
 
 ---
 
@@ -56,14 +49,16 @@ depends on it.
 - **License:** **GNU General Public License, version 2 (GPL-2.0)** — full text in
   [`engine/LICENSE`](engine/LICENSE).
 - **Form distributed here:** prebuilt WebAssembly/Emscripten binaries obtained from
-  the project's published build host (`ozkl.github.io/doomgeneric`), redistributed
-  unmodified:
+  the project's published build host (`ozkl.github.io/doomgeneric`). `doomgeneric.wasm`
+  is redistributed unmodified. `doomgeneric.data` and `doomgeneric.js` are modified
+  **only** to remove id Software's shareware IWAD from the data package, as described
+  above; no engine code was changed.
 
-  | File | SHA-256 |
-  |---|---|
-  | `engine/doomgeneric.js` | `73b56ebd355411d1c05ed29191b7af31e8e4e8d4cf77569180c0eaf18c322ead` |
-  | `engine/doomgeneric.wasm` | `2668cef41eff14dfcc308921a5d625193f5b55cb27ff6a0b15d9ac41b8e78db3` |
-  | `engine/doomgeneric.data` | `6da402d851c320e8849da0e464635942256283ce4d34b207619f31c31f448a3d` |
+  | File | SHA-256 | |
+  |---|---|---|
+  | `engine/doomgeneric.wasm` | `2668cef41eff14dfcc308921a5d625193f5b55cb27ff6a0b15d9ac41b8e78db3` | unmodified |
+  | `engine/doomgeneric.js` | `ba18398d1b28577335ca14d679d9a68562be44a449315800c55fe43fda793627` | manifest edited |
+  | `engine/doomgeneric.data` | `024faa74872e26e42acd9f379a44d7d22c9225c4363f0048d5b4596f823e4a86` | shareware WAD removed |
 
 ### Written offer of source (GPL-2.0 §3)
 
@@ -77,8 +72,9 @@ If you need the corresponding source for *these specific binaries* and upstream 
 not suffice, please open an issue on this repository and it will be obtained or the
 binaries will be replaced with ones built from an identified revision.
 
-The engine has **not** been modified by this project. It is loaded as an unmodified
-third-party binary by `app.js`.
+The engine **code** has not been modified by this project — `doomgeneric.wasm` is
+byte-identical to upstream. The only changes are the removal of the shareware IWAD
+from the data package and the corresponding offset fix in the loader manifest.
 
 ---
 
@@ -158,7 +154,7 @@ MIDI music.
 |---|---|---|
 | Browser wrapper (`app.js`, `index.html`, `style.css`, `config.js`, docs) | lofihippo | MIT |
 | DOOM engine (doomgeneric, LinuxDOOM 1.10 lineage) | ozkl; originally id Software | GPL-2.0 |
-| Original DOOM design & the bundled shareware IWAD | id Software | Proprietary (shareware) |
+| Original DOOM design and engine lineage | id Software | GPL-2.0 (engine, 1997 release); game data not distributed here |
 | Freedoom Phase 1 game data | Freedoom contributors | BSD-3-Clause |
 | GUS instrument patches | Advanced Gravis / EYE & I Productions; packaged by fraggle | Unclear / public-domain configs |
 | Emscripten toolchain | Emscripten contributors | MIT / NCSA |

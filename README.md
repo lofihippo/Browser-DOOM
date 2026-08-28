@@ -12,8 +12,8 @@ and your choice is remembered across sessions.
 
 > **This repo is a thin shell, not a game.** The hard part — the DOOM engine, the
 > game data, the music instruments, the original 1993 game design — is other
-> people's work, redistributed here unmodified under their own licenses. What lives
-> here is about 600 lines of browser glue holding them together.
+> people's work, redistributed here under their own licenses. What lives here is
+> about 600 lines of browser glue holding them together.
 > See **[Credits](#credits)**.
 
 ![Screenshot](docs/screenshot.png)
@@ -147,7 +147,7 @@ Browser (http://localhost:8080)
    engine/   doomgeneric (Emscripten WebAssembly, GPL-2.0)
       doomgeneric.js      Emscripten glue
       doomgeneric.wasm    compiled engine
-      doomgeneric.data    GUS instruments + id's shareware IWAD (unused, see notices)
+      doomgeneric.data    GUS instrument patches (shareware IWAD removed)
    public/
       freedoom1.wad       default game data (Freedoom Phase 1)
 ```
@@ -160,8 +160,8 @@ Key details:
   WebAssembly + data package and auto-runs the engine's `main()`.
 - **WAD injection.** The chosen WAD is written into the Emscripten **FS** using
   `Module['FS_unlink']` / `Module['FS_createDataFile']` inside `onRuntimeInitialized` —
-  which fires after the bundled data is loaded and just before `main()`. The baked-in
-  shareware base is removed so Doom's IWAD search finds only the intended game.
+  which fires after the bundled data is loaded and just before `main()`, so Doom's
+  IWAD search finds only the intended game.
 - **No re-encoding.** Freedoom and user WADs are streamed straight into the WASM FS
   as-is; nothing is converted.
 - **Persistence.** Data that must survive a reload lives in **IndexedDB** (active WAD)
@@ -203,7 +203,7 @@ one-off `python3 -m http.server` / `npm run dev` with **Ctrl+C** in its terminal
 ## Project layout
 
 ```
-/ 
+/
   index.html               UI shell (boot / game / help screens)
   style.css                styling
   app.js                   WAD handling, engine bootstrap, IndexedDB persistence, controls UI
@@ -213,7 +213,7 @@ one-off `python3 -m http.server` / `npm run dev` with **Ctrl+C** in its terminal
   engine/                  doomgeneric WASM engine (GPL-2.0 prebuilt)
     doomgeneric.js         Emscripten glue
     doomgeneric.wasm       compiled engine
-    doomgeneric.data       GUS instruments + id's shareware IWAD (unused)
+    doomgeneric.data       GUS instrument patches (shareware IWAD removed)
     LICENSE                GPL-2.0 license for the engine
   public/
     freedoom1.wad          default game data (Freedoom Phase 1)
@@ -246,17 +246,12 @@ This project combines code and game data under different licenses.
 See **`THIRD_PARTY_NOTICES.md`** for the full text, the GPL-2.0 source offer, and
 per-component notices.
 
-> **Legal note — id Software shareware data is present.** The prebuilt engine data
-> package `engine/doomgeneric.data` contains id Software's **DOOM shareware IWAD**
-> (`doom1.wad`, "Knee-Deep in the Dead"), baked in by the upstream doomgeneric build
-> and redistributed here verbatim. It is **proprietary to id Software** — not free
-> software — although id distributed it as shareware and its in-game notice states it
-> "can be freely distributed." It is **unused at runtime**: `app.js` deletes it from
-> the engine's virtual filesystem before the game starts, so play always uses Freedoom
-> or a WAD you supply. If you fork or host this, note that you are redistributing that
-> data too; `THIRD_PARTY_NOTICES.md` explains how to strip it.
+> **Legal note.** No id Software game data is distributed in this repository.
+> The upstream doomgeneric build bakes id's DOOM shareware IWAD into its data
+> package; it has been **removed** here, and the loader manifest adjusted to match.
+> The 211 remaining files in `engine/doomgeneric.data` (GUS instrument patches and
+> Timidity configs) are byte-identical to upstream. See `THIRD_PARTY_NOTICES.md`.
 >
-> No *retail* id Software assets (DOOM, DOOM II, Final Doom) are distributed here.
 > Users may load their own legally owned WAD files at runtime; those files stay on
 > the user's machine and are never uploaded.
 
