@@ -10,7 +10,13 @@ the classic DOOM — so it plays out of the box with a real game. You can also l
 your own legally-owned `.wad` IWAD at runtime via drag-and-drop or the file picker,
 and your choice is remembered across sessions.
 
-![Screenshot](/docs/screenshot.png)
+> **This repo is a thin shell, not a game.** The hard part — the DOOM engine, the
+> game data, the music instruments, the original 1993 game design — is other
+> people's work, redistributed here unmodified under their own licenses.
+> [lofihippo](https://github.com/lofihippo) wrote only the ~600 lines of browser
+> glue that wire them together. See **[Credits](#credits)**.
+
+![Screenshot](docs/screenshot.png)
 
 ---
 
@@ -141,7 +147,7 @@ Browser (http://localhost:8080)
    engine/   doomgeneric (Emscripten WebAssembly, GPL-2.0)
       doomgeneric.js      Emscripten glue
       doomgeneric.wasm    compiled engine
-      doomgeneric.data    preloaded soundfont/audio + baked shareware base
+      doomgeneric.data    GUS instruments + id's shareware IWAD (unused, see notices)
    public/
       freedoom1.wad       default game data (Freedoom Phase 1)
 ```
@@ -207,7 +213,7 @@ one-off `python3 -m http.server` / `npm run dev` with **Ctrl+C** in its terminal
   engine/                  doomgeneric WASM engine (GPL-2.0 prebuilt)
     doomgeneric.js         Emscripten glue
     doomgeneric.wasm       compiled engine
-    doomgeneric.data       preloaded soundfont/audio + baked shareware base
+    doomgeneric.data       GUS instruments + id's shareware IWAD (unused)
     LICENSE                GPL-2.0 license for the engine
   public/
     freedoom1.wad          default game data (Freedoom Phase 1)
@@ -231,13 +237,54 @@ This project combines code and game data under different licenses.
   comply with the GPL-2.0 terms.
 - **Default game data** — **Freedoom Phase 1** (`public/freedoom1.wad`): a permissive
   **BSD-style** license (copyright Freedoom contributors).
+- **Music instruments** — the Gravis Ultrasound patch set inside
+  `engine/doomgeneric.data`: packaged into the public domain by Simon Howard
+  (fraggle), but the `.pat` files themselves carry a 1992–94 Advanced Gravis /
+  EYE & I Productions copyright with **no explicit redistribution grant**. Treat
+  their status as unclear.
 
-See **`THIRD_PARTY_NOTICES.md`** for the full text and per-component notices.
+See **`THIRD_PARTY_NOTICES.md`** for the full text, the GPL-2.0 source offer, and
+per-component notices.
 
-> **Legal note.** No proprietary Id Software assets are distributed with this project.
-> Only free/libre game data (Freedoom) is bundled. Users may load their own legally
-> owned WAD files at runtime; those files stay on the user's machine and are never
-> uploaded.
+> **Legal note — id Software shareware data is present.** The prebuilt engine data
+> package `engine/doomgeneric.data` contains id Software's **DOOM shareware IWAD**
+> (`doom1.wad`, "Knee-Deep in the Dead"), baked in by the upstream doomgeneric build
+> and redistributed here verbatim. It is **proprietary to id Software** — not free
+> software — although id distributed it as shareware and its in-game notice states it
+> "can be freely distributed." It is **unused at runtime**: `app.js` deletes it from
+> the engine's virtual filesystem before the game starts, so play always uses Freedoom
+> or a WAD you supply. If you fork or host this, note that you are redistributing that
+> data too; `THIRD_PARTY_NOTICES.md` explains how to strip it.
+>
+> No *retail* id Software assets (DOOM, DOOM II, Final Doom) are distributed here.
+> Users may load their own legally owned WAD files at runtime; those files stay on
+> the user's machine and are never uploaded.
+
+---
+
+## Credits
+
+Browser DOOM exists because of decades of work by other people. In rough order of
+how much of the thing you are actually playing they are responsible for:
+
+- **[id Software](https://www.idsoftware.com/)** — John Carmack, John Romero, Tom
+  Hall, Adrian Carmack, Kevin Cloud, Sandy Petersen, Dave Taylor, Bobby Prince and
+  colleagues — who wrote DOOM in 1993 and then, in 1997, released the engine source
+  so that projects like this one could exist at all. DOOM and its trademarks remain
+  theirs; this project is unaffiliated with and unendorsed by id Software, ZeniMax,
+  or Microsoft.
+- **[ozkl](https://github.com/ozkl) and the doomgeneric contributors** — for the
+  portable source port and the WebAssembly build that does all the real work here.
+- **The [Freedoom](https://freedoom.github.io/) contributors** — the artists, level
+  designers and composers who rebuilt an entire DOOM-compatible game from scratch
+  so that ports like this have something legal and free to ship.
+- **Simon Howard (fraggle)**, with Tom Klok, Sebastien Bacquet and Jaydee — for
+  packaging and configuring the GUS instrument patches that give the music its voice.
+- **The [Emscripten](https://emscripten.org/) project** — for the toolchain that puts
+  a 1993 C codebase in a browser tab.
+- **[lofihippo](https://github.com/lofihippo)** — assembled this repository and wrote
+  the browser wrapper (`index.html`, `style.css`, `app.js`, `config.js`, docs). That
+  is the only part of this repo authored here.
 
 ---
 

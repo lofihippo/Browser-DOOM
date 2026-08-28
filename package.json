@@ -1,7 +1,7 @@
 {
   "name": "browser-doom",
   "version": "1.0.0",
-  "description": "A playable, fully client-side DOOM that runs in the browser. Bundles the doomgeneric WebAssembly engine (GPL-2.0) and Freedoom Phase 1 game data, with runtime loading of user WADs.",
+  "description": "A playable, fully client-side DOOM that runs in the browser. Thin wrapper by lofihippo around the doomgeneric WebAssembly engine (GPL-2.0, by ozkl, from id Software's LinuxDOOM) and Freedoom Phase 1 game data (BSD), with runtime loading of user WADs.",
   "main": "index.html",
   "type": "module",
   "scripts": {
@@ -17,8 +17,8 @@
     "freedoom",
     "doomgeneric"
   ],
-  "author": "Browser DOOM Team",
-  "license": "MIT",
+  "author": "lofihippo (browser wrapper only; see THIRD_PARTY_NOTICES.md for engine and game-data authors)",
+  "license": "MIT AND GPL-2.0",
   "devDependencies": {
     "http-server": "^14.1.1"
   },

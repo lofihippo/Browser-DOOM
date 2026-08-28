@@ -1,6 +1,33 @@
-MIT License
+Browser DOOM — licensing
+========================
 
-Copyright (c) 2025 Browser DOOM Team
+This repository is a browser wrapper around third-party software and game data.
+The MIT license below applies ONLY to the wrapper code written for this project:
+
+    index.html, style.css, app.js, config.js, and the documentation files.
+
+It does NOT apply to, and confers no rights over, any of the bundled third-party
+components, each of which remains under its own license and the copyright of its
+own authors:
+
+  * engine/doomgeneric.{js,wasm,data} — the doomgeneric DOOM engine (a fork of
+    id Software's LinuxDOOM 1.10), licensed GPL-2.0. See engine/LICENSE.
+  * engine/doomgeneric.data also contains id Software's proprietary DOOM
+    shareware IWAD and the Gravis Ultrasound instrument patches.
+  * public/freedoom1.wad — Freedoom Phase 1, (C) the Freedoom contributors,
+    modified BSD license.
+
+DOOM and the DOOM engine are the work of id Software. This project is not
+affiliated with, endorsed by, or sponsored by id Software, ZeniMax, or Microsoft.
+
+See THIRD_PARTY_NOTICES.md for full attribution, license texts, and the GPL-2.0
+source offer.
+
+---
+
+MIT License (applies to the Browser DOOM wrapper code only)
+
+Copyright (c) 2025 lofihippo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
