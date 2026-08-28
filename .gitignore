@@ -7,3 +7,6 @@ npm-debug.log*
 
 # Local server / scratch
 *.log
+
+# Local editor / agent scratch
+.claude/
