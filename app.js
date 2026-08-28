@@ -363,12 +363,9 @@ $('controlsBtn').addEventListener('click', () => showScreen('help'));
 $('helpClose').addEventListener('click', () => showScreen(engineRunning ? 'game' : 'boot'));
 $('overlayOk').addEventListener('click', hideOverlay);
 
-// Pointer lock for mouse turning.
-canvas.addEventListener('click', () => {
-  if (!document.pointerLockElement && canvas.requestPointerLock) {
-    canvas.requestPointerLock();
-  }
-});
+// The doomgeneric engine has no mouse input (its porting API is DG_GetKey only),
+// so there is nothing to capture the pointer for. Just take keyboard focus.
+canvas.addEventListener('click', () => canvas.focus());
 
 // Drag-and-drop a WAD anywhere on the page.
 for (const ev of ['dragover', 'drop']) window.addEventListener(ev, (e) => e.preventDefault());

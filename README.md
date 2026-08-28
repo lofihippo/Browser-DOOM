@@ -59,8 +59,9 @@ custom IWAD.
   is uploaded, and the game runs locally once the page is loaded.
 - ✅ **Ready to play** — bundled **Freedoom: Phase 1** (a complete, free replacement
   for DOOM's game data).
-- ✅ **Keyboard + mouse controls** — move with WASD/arrows, turn with the mouse, fire,
-  strafe, run, and use Doom's in-game menus.
+- ✅ **Keyboard controls** — move and turn with the arrow keys, fire, strafe, run,
+  switch weapons, and use Doom's in-game menus. (The engine is keyboard-only; see
+  **Controls**.)
 - ✅ **Runtime WAD loading** — drag-and-drop or pick a `.wad` to play any legally-owned
   IWAD (DOOM, DOOM II, Final Doom, Heretic, Hexen, FreeDM, Freedoom, …).
 - ✅ **Persistent game selection** — your chosen WAD is stored in IndexedDB and
@@ -71,24 +72,25 @@ custom IWAD.
 
 ## Controls
 
-| Action              | Control |
-|---------------------|---------|
-| Move forward        | `W` / `↑` |
-| Move backward       | `S` / `↓` |
-| Strafe left / right | `A` / `D`, or `←` / `→` |
-| Turn                | Mouse (click the canvas to capture the pointer) |
-| Fire                | Mouse button / `Ctrl` |
-| Open / use          | `Space` |
-| Run                 | `Shift` |
-| Strafe              | `Alt` |
-| Map                 | `Tab` |
-| Game options        | `F1` |
-| Save / load game    | `F2` / `F3` (current session only — see below) |
-| In-game menu        | `Esc` |
+| Action | Control |
+|---|---|
+| Move forward / back | `↑` / `↓` |
+| Turn left / right | `←` / `→` |
+| Strafe | `Alt` + `←` / `→`, or `,` / `.` |
+| Fire | `Ctrl` |
+| Open / use | `Space` |
+| Run | `Shift` |
+| Switch weapon | `1` – `7` |
+| Automap | `Tab` |
+| Save / load game | `F2` / `F3` (current session only — see Troubleshooting) |
+| In-game menu | `Esc` |
 
-> This source port is based on the classic DOOM engine, which turns horizontally —
-> there is no vertical mouse-look. It plays the full mission content of whichever
-> IWAD you load (Freedoom Phase 1 by default, or your own DOOM/DOOM II, etc.).
+> **The mouse does nothing in this build, and neither does WASD.** The engine is
+> [doomgeneric](https://github.com/ozkl/doomgeneric), whose entire platform input API
+> is a single `DG_GetKey()` callback — there is no mouse handling in it at all. Its
+> key map covers the arrow keys, Ctrl, Space, Shift, Alt, Tab, Esc, Enter and F2–F11;
+> letter keys fall through unmapped, and vanilla Doom does not bind WASD. Use the
+> arrow keys.
 
 ---
 
@@ -312,6 +314,7 @@ locally in your browser.
 
 ## Browser compatibility
 
-Tested on modern Chrome, Firefox, Edge and Safari. iOS/Safari can run the engine, but
-internal mouse-capture behavior may differ on touch devices. A browser that supports
-WebGL is required for the SDL2 renderer.
+Tested on modern Chrome, Firefox, Edge and Safari. A browser that supports WebGL is
+required for the SDL2 renderer. There is no touch or on-screen control scheme, so a
+physical keyboard is needed to play — phones and tablets will load the game but
+cannot control it.
